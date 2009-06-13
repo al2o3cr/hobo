@@ -136,7 +136,15 @@ module Hobo
     module ClassMethods
 
       attr_accessor :creator_attribute
-      attr_writer :name_attribute, :primary_content_attribute
+      inheriting_cattr_accessor :name_attribute => Proc.new {
+        names = columns.*.name + public_instance_methods
+        NAME_FIELD_GUESS.detect {|f| f.in? names }
+      }
+      
+      inheriting_cattr_accessor :primary_content_attribute => Proc.new {
+        names = columns.*.name + public_instance_methods
+        PRIMARY_CONTENT_GUESS.detect {|f| f.in? names }
+      }
 
       def named(*args)
         raise NoNameError, "Model #{name} has no name attribute" unless name_attribute
@@ -152,22 +160,6 @@ module Hobo
 
         #FIXME - this should be in Hobo::User
         send(:login_attribute=, name.to_sym, validate) if options.delete(:login) && respond_to?(:login_attribute=)
-      end
-
-
-      def name_attribute
-        @name_attribute ||= begin
-                              names = columns.*.name + public_instance_methods
-                              NAME_FIELD_GUESS.detect {|f| f.in? names }
-                            end
-      end
-
-
-      def primary_content_attribute
-        @primary_content_attribute ||= begin
-                                         names = columns.*.name + public_instance_methods
-                                         PRIMARY_CONTENT_GUESS.detect {|f| f.in? names }
-                                       end
       end
 
       def dependent_collections

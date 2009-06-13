@@ -22,12 +22,6 @@ module HoboFields
       super
     end
 
-
-    def self.field_specs
-      @field_specs ||= HashWithIndifferentAccess.new
-    end
-
-
     private
 
     # Declares that a virtual field that has a rich type (e.g. created
