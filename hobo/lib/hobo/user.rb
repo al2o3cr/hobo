@@ -70,7 +70,7 @@ module Hobo
         end
       end
 
-      attr_reader :login_attribute
+      inheriting_cattr_reader :login_attribute
 
 
       # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
