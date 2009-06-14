@@ -76,6 +76,14 @@ module Hobo
         new.viewable_by?(user, attribute)
       end
       
+      def read_only(*names)
+        names.each do |name|
+          define_method("#{name}_editable_by?(user)") do 
+            false
+          end
+        end
+      end
+      
     end
     
     
@@ -301,9 +309,7 @@ module Hobo
         yield attribute.to_s, nil
       end
     end
-      
-    
-    
+
     # -------------------------------------- #
     
     
