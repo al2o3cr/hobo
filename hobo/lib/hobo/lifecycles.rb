@@ -75,7 +75,16 @@ module Hobo
 
 
       def lifecycle
-        @lifecycle ||= self.class::Lifecycle.new(self)
+        @lifecycle ||=  if defined? self.class::Lifecycle
+                          self.class::Lifecycle.new(self)
+                        else
+                          # search through superclasses
+                          current = self.class.superclass
+                          until (defined?(current::Lifecycle) || current.nil? || !current.respond_to?(:lifecycle)) do
+                            current = current.superclass
+                          end
+                          current.class::Lifecycle.new(self) if defined? current::Lifecycle
+                        end
       end
 
     end

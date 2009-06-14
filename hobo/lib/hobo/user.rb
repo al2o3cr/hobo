@@ -153,7 +153,7 @@ module Hobo
     
     
     def lifecycle_changing_password?
-      lifecycle.active_step && :password.in?(lifecycle.active_step.parameters)
+      self.class.has_lifecycle? && lifecycle.active_step && :password.in?(lifecycle.active_step.parameters)
     end
 
     # Is a new password (and confirmation) required? (i.e. signing up or changing password)
