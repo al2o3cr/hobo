@@ -136,13 +136,14 @@ module Hobo
     module ClassMethods
 
       attr_accessor :creator_attribute
-      inheriting_cattr_accessor :name_attribute => Proc.new {
-        names = columns.*.name + public_instance_methods
+      inheriting_cattr_accessor :name_attribute => Proc.new { |c|
+        debugger
+        names = c.columns.*.name + c.public_instance_methods
         NAME_FIELD_GUESS.detect {|f| f.in? names }
       }
       
-      inheriting_cattr_accessor :primary_content_attribute => Proc.new {
-        names = columns.*.name + public_instance_methods
+      inheriting_cattr_accessor :primary_content_attribute => Proc.new { |c|
+        names = c.columns.*.name + c.public_instance_methods
         PRIMARY_CONTENT_GUESS.detect {|f| f.in? names }
       }
 

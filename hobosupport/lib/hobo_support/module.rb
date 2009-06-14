@@ -28,7 +28,7 @@ class Module
         else
           superclass.respond_to?(name) && superclass.send(name) ||
           block && begin
-            result = block.is_a?(Proc) ? block.call : block
+            result = block.is_a?(Proc) ? block.call(self) : block
             instance_variable_set(ivar_name, result) if result
           end
         end
