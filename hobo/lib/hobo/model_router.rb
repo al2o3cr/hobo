@@ -252,9 +252,7 @@ module Hobo
         options.reverse_merge!(:controller => route_with_subsite(plural))
         name = name_with_subsite(name)
         route = route_with_subsite(route)
-        format_route = options.delete(:format) != false
         map.named_route(name, route, options)
-        map.named_route("formatted_#{name}", "#{route}.:format", options) if format_route
         true
       else
         false
