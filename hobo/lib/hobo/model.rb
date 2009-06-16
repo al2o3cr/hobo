@@ -137,7 +137,6 @@ module Hobo
 
       attr_accessor :creator_attribute
       inheriting_cattr_accessor :name_attribute => Proc.new { |c|
-        debugger
         names = c.columns.*.name + c.public_instance_methods
         NAME_FIELD_GUESS.detect {|f| f.in? names }
       }
