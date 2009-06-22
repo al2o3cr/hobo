@@ -125,11 +125,11 @@ This tag assumes the controller has a `reorder` action. This action is added aut
   <div class="search">
     <label for="search-field">Search</label><input type="search" class="live-search"/>
     <spinner id="search-spinner"/>
+    <section class="hidden" id="search-results-panel">
+      <h2>Search Results</h2><div param="close-button">close</div>
+      <section id="search-results">&nbsp;</section>
+    </section>
   </div>
-  <section class="hidden" id="search-results-panel">
-    <h2>Search Results</h2><div param="close-button">close</div>
-    <section id="search-results">&nbsp;</section>
-  </section>
 </def>
 
 <!-- A `<select>` menu intended to act as a filter for index pages.
