@@ -78,7 +78,7 @@ module Hobo
       
       def read_only(*names)
         names.each do |name|
-          define_method("#{name}_editable_by?(user)") do 
+          define_method("#{name}_edit_permitted?") do 
             false
           end
         end
