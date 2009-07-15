@@ -204,7 +204,7 @@ module Hobo
         else
           class_eval %{
             def #{name}_is?(target)
-              target.class == ::#{refl.klass.name} && target.id == self.#{refl.primary_key_name}
+              target.class <= ::#{refl.klass.name} && target.id == self.#{refl.primary_key_name}
             end
             def #{name}_changed?
               #{refl.primary_key_name}_changed?
