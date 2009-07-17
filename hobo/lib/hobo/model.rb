@@ -435,7 +435,7 @@ module Hobo
         self.send("#{attr}=", user.to_s) unless user.guest?
       else
         # Assume user is a user object, but don't set if we've got a type mismatch
-        self.send("#{attr}=", user) if t.nil? || user.is_a?(t)
+        self.send("#{attr}=", user) if attr_type.nil? || user.is_a?(attr_type)
       end
     end
 
