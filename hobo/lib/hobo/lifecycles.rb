@@ -20,7 +20,9 @@ module Hobo
                                         :key_timestamp_field => :key_timestamp,
                                         :key_timeout => 999.years)
 
-        if defined? self::Lifecycle
+        # use const_defined so that subclasses can define lifecycles
+        # TODO: figure out how to merge with parent, if desired
+        if self.const_defined?(:Lifecycle)
           lifecycle = self::Lifecycle
         else
           # First call
