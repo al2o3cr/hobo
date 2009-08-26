@@ -86,7 +86,7 @@ new_form = !new_link && linkable?(model, :create, :method => :post)
 
 <%
 back_link      = model.dependent_on.detect { |x| !(model.reflections[x].klass < Hobo::User) }
-boolean_fields = model.columns.select { |c| c.type == :boolean }.*.name
+boolean_fields = model.columns.select { |c| c.type == :boolean }.*.name - model.view_hints.inline_booleans
 creator        = model.creator_attribute
 creator_link   = creator && model.reflections[creator] && linkable?(model.reflections[creator].klass, :show)
 edit_link      = linkable?(:edit)
