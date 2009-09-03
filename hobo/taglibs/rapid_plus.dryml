@@ -100,7 +100,7 @@ This tag assumes the controller has a `reorder` action. This action is added aut
   <% name ||= collection_name.pluralize -%>
   <section class="#{name.gsub(' ', '-').dasherize} preview-with-more" param="default">
     <h3 param="heading"><%= name.titleize %></h3>
-    <a param="more">More <type-name plural lowercase/>...</a>
+    <a param="more" unless="&this.empty?">More <type-name plural lowercase/>...</a>
     <collection param/>
   </section>
 </def>
