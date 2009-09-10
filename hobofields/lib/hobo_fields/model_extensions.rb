@@ -69,6 +69,9 @@ module HoboFields
     def self.belongs_to_with_field_declarations(name, options={}, &block)
       column_options = {}
       column_options[:null] = options.delete(:null) if options.has_key?(:null)
+      index_name = options.delete(:index)
+      no_index = index_name == false
+      index_name = nil if index_name == true
 
       returning belongs_to_without_field_declarations(name, options, &block) do
         refl = reflections[name.to_sym]
@@ -76,9 +79,9 @@ module HoboFields
         declare_field(fkey.to_sym, :integer, column_options)
         if refl.options[:polymorphic]
           declare_polymorphic_type_field(name, column_options)
-          index(["#{name}_type", fkey])
+          index(["#{name}_type", fkey], :name => index_name) unless no_index
         else
-          index(fkey)
+          index(fkey, :name => index_name) unless no_index
         end
       end
     end
