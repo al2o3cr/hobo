@@ -20,8 +20,16 @@ module Hobo
 
 
       def extract_attributes(attributes)
-        update_attributes = options.fetch(:params, [])
-        attributes & update_attributes
+        model = lifecycle.model
+        params = options.fetch(:params, [])
+        allowed = params.dup
+        params.each do |p|
+          if (refl = model.reflections[p]) && refl.macro == :belongs_to
+            allowed << refl.primary_key_name.to_s
+            allowed << refl.options[:foreign_type] if refl.options[:polymorphic]
+          end
+        end
+        attributes & allowed
       end
         
       
